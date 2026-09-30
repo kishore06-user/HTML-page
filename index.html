@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}FitBuddy - AI Fitness Planner{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-text">
+        <span class="badge">🤖 AI FITNESS ASSISTANT</span>
+
+        <h1>
+            Your Personal
+            <span>AI Fitness Buddy</span>
+        </h1>
+
+        <p>
+            Create a personalized 7-day workout plan and nutrition tip
+            using Generative AI.
+        </p>
+
+        <div class="hero-points">
+            <div><span>✓</span> Personalized 7-day workout plan</div>
+            <div><span>✓</span> Goal-based exercise selection</div>
+            <div><span>✓</span> Nutrition and recovery guidance</div>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <div class="card-heading">
+            <div>
+                <h2>Create Your Fitness Plan</h2>
+                <p class="form-subtitle">Tell us about yourself.</p>
+            </div>
+            <span class="card-icon" aria-hidden="true">✨</span>
+        </div>
+
+        {% if error %}
+        <div class="alert error" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <form action="/generate-workout" method="post">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="user_id">User ID</label>
+                    <input id="user_id" type="text" name="user_id"
+                           placeholder="e.g. FB001" autocomplete="off" required>
+                </div>
+
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name"
+                           placeholder="Your name" autocomplete="name" required>
+                </div>
+
+                <div class="field">
+                    <label for="age">Age</label>
+                    <input id="age" type="number" name="age"
+                           min="13" max="100" placeholder="Age" required>
+                </div>
+
+                <div class="field">
+                    <label for="weight">Weight (kg)</label>
+                    <input id="weight" type="number" name="weight"
+                           step="0.1" min="20" max="400"
+                           placeholder="e.g. 65" required>
+                </div>
+
+                <div class="field full">
+                    <label for="goal">Fitness Goal</label>
+                    <select id="goal" name="goal" required>
+                        <option value="" selected disabled>Select your goal</option>
+                        <option value="Weight Loss">Weight Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="General Wellness">General Wellness</option>
+                        <option value="Flexibility">Flexibility</option>
+                        <option value="Endurance">Endurance</option>
+                    </select>
+                </div>
+
+                <fieldset class="field full fieldset-reset">
+                    <legend>Workout Intensity</legend>
+
+                    <div class="intensity-options">
+                        <label class="radio-card">
+                            <input type="radio" name="intensity" value="low" required>
+                            <span>
+                                <b class="option-icon">🟢</b>
+                                <strong>Low</strong>
+                                <small>Beginner friendly</small>
+                            </span>
+                        </label>
+
+                        <label class="radio-card">
+                            <input type="radio" name="intensity" value="medium">
+                            <span>
+                                <b class="option-icon">🟡</b>
+                                <strong>Medium</strong>
+                                <small>Moderate challenge</small>
+                            </span>
+                        </label>
+
+                        <label class="radio-card">
+                            <input type="radio" name="intensity" value="high">
+                            <span>
+                                <b class="option-icon">🔴</b>
+                                <strong>High</strong>
+                                <small>Advanced challenge</small>
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="primary-btn">
+                ✨ Generate My 7-Day Plan
+            </button>
+        </form>
+    </div>
+</section>
+
+<section class="features" aria-label="FitBuddy features">
+    <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🏋️</div>
+        <h3>Personalized Workouts</h3>
+        <p>AI creates a 7-day plan based on your fitness goal and intensity.</p>
+    </article>
+
+    <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🥗</div>
+        <h3>Nutrition Tips</h3>
+        <p>Get a concise nutrition or recovery recommendation with your plan.</p>
+    </article>
+
+    <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🔄</div>
+        <h3>AI Plan Updates</h3>
+        <p>Submit feedback and let AI adapt your workout plan.</p>
+    </article>
+</section>
+{% endblock %}
